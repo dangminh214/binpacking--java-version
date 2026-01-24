@@ -1,19 +1,19 @@
 package model.algorithm.greedy;
 
+import java.util.ArrayList;
 import model.algorithm.AbstractSolution;
 import model.core.Item;
 
-import java.util.ArrayList;
-
 public class GreedyAlgorithm<I extends Item, C, S extends AbstractSolution<C>> {
+
     GreedySelection<I> selectionStrategy; // e.g, first fit descending
     GreedyPlacement<I, C, S> placementStrategy; //e.g. bottom left placement
     S solution;
 
     public GreedyAlgorithm(
-            S initSolution,
-            GreedySelection<I> selectionStrategy,
-            GreedyPlacement<I, C, S> placementStrategy
+        S initSolution,
+        GreedySelection<I> selectionStrategy,
+        GreedyPlacement<I, C, S> placementStrategy
     ) {
         this.solution = initSolution;
         this.selectionStrategy = selectionStrategy;

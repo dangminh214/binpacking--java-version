@@ -1,10 +1,10 @@
 package model.algorithm.greedy;
 
+import java.util.ArrayList;
 import model.core.SelectionStrategy;
 
-import java.util.ArrayList;
-
 public abstract class GreedySelection<I> extends SelectionStrategy<I> {
+
     public ArrayList<I> items;
 
     public GreedySelection(ArrayList<I> items) {

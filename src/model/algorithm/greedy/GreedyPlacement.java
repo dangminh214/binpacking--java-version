@@ -1,4 +1,5 @@
 package model.algorithm.greedy;
+
 /**
  * check if it is possible to add an item into a solution
  * e.g. Bottom Left
@@ -17,9 +18,10 @@ import model.core.PlacementStrategy;
  * e.g. Bottom Left
  */
 public abstract class GreedyPlacement<
-        I extends Item,
-        C,
-        S extends AbstractSolution<C>> extends PlacementStrategy<I, S> {
+    I extends Item,
+    C,
+    S extends AbstractSolution<C>
+> extends PlacementStrategy<I, S> {
 
     public boolean checkThenAdd(I item, S solution) {
         Placement toPlacePos = this.canPlace(item, solution);
@@ -43,7 +45,11 @@ public abstract class GreedyPlacement<
      */
     protected abstract void place(I item, S solution, Placement pos);
 
-    protected abstract void place(Rectangle rect, AlgSolution algSol, ToPlacePosition toPlacePos);
+    protected abstract void place(
+        Rectangle rect,
+        AlgSolution algSol,
+        ToPlacePosition toPlacePos
+    );
 
     /**
      * Helper class representing a placement position
@@ -61,4 +67,3 @@ public abstract class GreedyPlacement<
         }
     }
 }
-
