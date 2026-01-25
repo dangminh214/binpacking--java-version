@@ -1,5 +1,8 @@
 package model.core;
 
+import java.util.ArrayList;
+
 public abstract class SelectionStrategy<I> {
-    abstract void orderItems(I[] items);
+
+    public abstract ArrayList<I> orderItems(ArrayList<I> items);
 }
