@@ -4,12 +4,12 @@ import java.util.List;
 import model.algorithm.ToPlacePosition;
 import model.algorithm.greedy.GreedyPlacement;
 import model.binpacking.AlgSolution;
+import model.binpacking.BinRectangle;
 import model.binpacking.Box;
 import model.binpacking.InitPosition;
-import model.binpacking.Rectangle;
 
 public class BottomLeftPlacer
-    extends GreedyPlacement<Rectangle, Box, AlgSolution>
+    extends GreedyPlacement<BinRectangle, Box, AlgSolution>
 {
 
     private int boxL;
@@ -20,7 +20,10 @@ public class BottomLeftPlacer
     }
 
     @Override
-    protected ToPlacePosition canPlace(Rectangle item, AlgSolution solution) {
+    protected ToPlacePosition canPlace(
+        BinRectangle item,
+        AlgSolution solution
+    ) {
         List<Box> boxes = solution.getItems();
 
         // Try to place in existing boxes
@@ -40,7 +43,7 @@ public class BottomLeftPlacer
         return canPlaceInABox(item, newBox);
     }
 
-    private ToPlacePosition canPlaceInABox(Rectangle item, Box box) {
+    private ToPlacePosition canPlaceInABox(BinRectangle item, Box box) {
         // 1. normal orientation
         ToPlacePosition normalResult = tryPlaceInBox(item, box, false);
         if (normalResult != null) return normalResult;
@@ -55,7 +58,7 @@ public class BottomLeftPlacer
     }
 
     private ToPlacePosition tryPlaceInBox(
-        Rectangle item,
+        BinRectangle item,
         Box box,
         boolean shouldRotate
     ) {
@@ -72,7 +75,7 @@ public class BottomLeftPlacer
 
         // 2. positions induced by placed rectangles
         if (result == null) {
-            for (Rectangle placed : box.getRectangles()) {
+            for (BinRectangle placed : box.getRectangles()) {
                 // to the right
                 InitPosition posRight = new InitPosition(
                     placed.getPosition().getX() + placed.getWidth(),
@@ -114,7 +117,7 @@ public class BottomLeftPlacer
 
     @Override
     protected void place(
-        Rectangle rect,
+        BinRectangle rect,
         AlgSolution solution,
         ToPlacePosition pos
     ) {

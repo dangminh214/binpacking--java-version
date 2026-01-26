@@ -3,17 +3,17 @@ package model.binpacking.greedy.selectionStrategy;
 import java.util.ArrayList;
 import java.util.Comparator;
 import model.algorithm.greedy.GreedySelection;
-import model.binpacking.Rectangle;
+import model.binpacking.BinRectangle;
 
-public class AreaGreedyStrategy extends GreedySelection<Rectangle> {
+public class AreaGreedyStrategy extends GreedySelection<BinRectangle> {
 
-    public AreaGreedyStrategy(ArrayList<Rectangle> rectangles) {
+    public AreaGreedyStrategy(ArrayList<BinRectangle> rectangles) {
         super(rectangles);
     }
 
     @Override
-    public ArrayList<Rectangle> orderItems(ArrayList<Rectangle> items) {
-        items.sort(Comparator.comparingInt(Rectangle::getArea).reversed());
+    public ArrayList<BinRectangle> orderItems(ArrayList<BinRectangle> items) {
+        items.sort(Comparator.comparingInt(BinRectangle::getArea).reversed());
         return items;
     }
 }

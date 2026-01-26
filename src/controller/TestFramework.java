@@ -3,8 +3,8 @@ package controller;
 import java.util.ArrayList;
 import model.algorithm.greedy.GreedyAlgorithm;
 import model.binpacking.AlgSolution;
+import model.binpacking.BinRectangle;
 import model.binpacking.Box;
-import model.binpacking.Rectangle;
 import model.binpacking.greedy.BottomLeftPlacer;
 import model.binpacking.greedy.selectionStrategy.AreaGreedyStrategy;
 
@@ -15,7 +15,7 @@ public class TestFramework {
     private int maxW;
     private int minH;
     private int maxH;
-    private ArrayList<Rectangle> rectangles;
+    private ArrayList<BinRectangle> rectangles;
     private int boxL;
     private AlgSolution solution;
 
@@ -64,7 +64,7 @@ public class TestFramework {
         this.maxW = maxW;
         this.minH = minH;
         this.maxH = maxH;
-        this.rectangles = new ArrayList<Rectangle>();
+        this.rectangles = new ArrayList<BinRectangle>();
         this.boxL = boxL;
         this.solution = null;
     }
@@ -78,7 +78,7 @@ public class TestFramework {
             int width = (int) (Math.random() * (maxW - minW + 1)) + minW;
             int height = (int) (Math.random() * (maxH - minH + 1)) + minH;
 
-            Rectangle rect = new Rectangle(i, width, height);
+            BinRectangle rect = new BinRectangle(i, width, height);
 
             this.rectangles.add(rect);
         }
@@ -93,7 +93,7 @@ public class TestFramework {
         BottomLeftPlacer placer = new BottomLeftPlacer(this.boxL);
         this.solution = new AlgSolution(this.numberInstances);
 
-        GreedyAlgorithm<Rectangle, Box, AlgSolution> alg =
+        GreedyAlgorithm<BinRectangle, Box, AlgSolution> alg =
             new GreedyAlgorithm<>(solution, selection, placer);
 
         AlgSolution sol = alg.solve();
@@ -109,7 +109,7 @@ public class TestFramework {
                 "\nBox " + i + ": " + box.getRectangles().size() + " rectangles"
             );
 
-            for (Rectangle rect : box.getRectangles()) {
+            for (BinRectangle rect : box.getRectangles()) {
                 System.out.println(
                     "  Rectangle " +
                         rect.getId() +

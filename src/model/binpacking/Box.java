@@ -8,13 +8,13 @@ public class Box {
     int boxL;
     int area;
 
-    ArrayList<Rectangle> rectangles;
+    ArrayList<BinRectangle> rectangles;
 
     public Box(int id, int boxL) {
         this.id = id;
         this.boxL = boxL;
         this.area = boxL * boxL;
-        this.rectangles = new ArrayList<Rectangle>();
+        this.rectangles = new ArrayList<BinRectangle>();
     }
 
     public int getLength() {
@@ -25,15 +25,15 @@ public class Box {
         return id;
     }
 
-    public void addRectangle(Rectangle rectangle) {
+    public void addRectangle(BinRectangle rectangle) {
         this.rectangles.add(rectangle);
     }
 
-    public ArrayList<Rectangle> getRectangles() {
+    public ArrayList<BinRectangle> getRectangles() {
         return rectangles;
     }
 
-    public boolean checkPossible(Rectangle rectangle, InitPosition pos) {
+    public boolean checkPossible(BinRectangle rectangle, InitPosition pos) {
         int x = pos.getX();
         int y = pos.getY();
 
@@ -43,7 +43,7 @@ public class Box {
         if (y + rectangle.getHeight() > this.boxL) return false;
 
         // 2. Overlap check
-        for (Rectangle r : this.rectangles) {
+        for (BinRectangle r : this.rectangles) {
             if (
                 x < r.getPosition().getX() + r.getWidth() &&
                 x + rectangle.getWidth() > r.getPosition().getX() &&

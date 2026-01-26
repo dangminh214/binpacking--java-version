@@ -1,6 +1,5 @@
 package ui;
 
-
 import controller.TestFramework;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -10,9 +9,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import model.binpacking.Box;
+import model.binpacking.BinRectangle;
 
-import java.util.function.UnaryOperator;
 import java.util.List;
+import java.util.function.UnaryOperator;
 
 public class MainController {
 
@@ -40,32 +40,38 @@ public class MainController {
         boxLField.setTextFormatter(new TextFormatter<>(filter));
     }
 
-    /**
-     * Called when the "Run Algorithm" button is clicked.
-     */
     @FXML
     public void handleRun() {
-        // Clear previous solution
         solutionPane.getChildren().clear();
 
-        // Read input values
-        int n = parseField(rectanglesNumberField, 100); // default 100 if empty
+        int n = parseField(rectanglesNumberField, 100);
         int minW = parseField(minWField, 1);
         int maxW = parseField(maxWField, 50);
         int minH = parseField(minHField, 1);
         int maxH = parseField(maxHField, 50);
         int boxL = parseField(boxLField, 100);
 
-        // Run bin packing in background thread
         new Thread(() -> {
             TestFramework tf = new TestFramework(n, minW, maxW, minH, maxH, boxL);
             tf.generateInstances();
-            tf.runGreedy(); // assumes solution stored in tf.getSolution()
+            tf.runGreedy();
 
-            List<Box> solution = tf.getSolution().getItems();
+            List<Box> allBoxes = tf.getSolution().getItems();
 
-            // Update UI on JavaFX thread
-            Platform.runLater(() -> drawBoxes(solution, boxL));
+            // Pick first 2 and last 2 boxes
+            List<Box> boxesToDraw;
+            if (allBoxes.size() <= 4) {
+                boxesToDraw = allBoxes;
+            } else {
+                boxesToDraw = List.of(
+                        allBoxes.get(0),
+                        allBoxes.get(1),
+                        allBoxes.get(allBoxes.size() - 2),
+                        allBoxes.get(allBoxes.size() - 1)
+                );
+            }
+
+            Platform.runLater(() -> drawBoxes(boxesToDraw));
         }).start();
     }
 
@@ -77,25 +83,49 @@ public class MainController {
         }
     }
 
-    private void drawBoxes(List<Box> boxes, int boxLength) {
-        double x = 10;
-        double y = 10;
-        double scale = 5.0; // scale down to fit Pane
+    private void drawBoxes(List<Box> boxes) {
+        solutionPane.getChildren().clear();
+
+        double startX = 20;
+        double startY = 20;
+        double scale = 2.0; // smaller scale to fit
+        double spacing = 20;
 
         for (Box box : boxes) {
-            Rectangle r = new Rectangle(box.getLength() * scale, box.getLength() * scale);
-            r.setFill(Color.color(Math.random(), Math.random(), Math.random()));
-            r.setStroke(Color.BLACK);
-            r.setX(x);
-            r.setY(y);
+            // Each box has a base color
+            Color boxColor = Color.color(Math.random(), Math.random(), Math.random(), 0.3);
 
-            solutionPane.getChildren().add(r);
+            // Draw box boundary
+            Rectangle boxRect = new Rectangle(box.getLength() * scale, box.getLength() * scale);
+            boxRect.setFill(boxColor);
+            boxRect.setStroke(Color.BLACK);
+            boxRect.setX(startX);
+            boxRect.setY(startY);
+            solutionPane.getChildren().add(boxRect);
 
-            x += box.getLength() * scale + 5;
-            if (x > solutionPane.getWidth() - 50) {
-                x = 10;
-                y += box.getLength() * scale + 5;
+            // Draw each rectangle inside the box
+            for (BinRectangle rect : box.getRectangles()) {
+                double rx = startX + rect.getPosition().getX() * scale;
+                double ry = startY + rect.getPosition().getY() * scale;
+                double rw = rect.getWidth() * scale;
+                double rh = rect.getHeight() * scale;
+
+                Rectangle r = new Rectangle(rw, rh);
+                // Color rotated rectangles differently
+                if (rect.getIsRotated()) {
+                    r.setFill(Color.RED);
+                } else {
+                    r.setFill(Color.BLUE);
+                }
+                r.setStroke(Color.BLACK);
+                r.setX(rx);
+                r.setY(ry);
+
+                solutionPane.getChildren().add(r);
             }
+
+            // Move startY for next box
+            startY += box.getLength() * scale + spacing;
         }
     }
 }
