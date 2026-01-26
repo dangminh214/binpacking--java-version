@@ -3,6 +3,8 @@ package ui;
 import controller.TestFramework;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.Pane;
@@ -17,6 +19,8 @@ import java.util.function.UnaryOperator;
 
 public class MainController {
 
+    public Button runButton;
+    public Label runtimeLabel;
     @FXML private TextField rectanglesNumberField;
     @FXML private TextField minWField;
     @FXML private TextField maxWField;
@@ -61,7 +65,10 @@ public class MainController {
             // Get runtime string (assuming TestFramework has getSolution().getFormattedRunTime())
             String runtime = tf.getSolution().getFormattedRunTime();
 
-            Platform.runLater(() -> drawBoxes(boxesToDraw, runtime));
+            Platform.runLater(() -> {
+                drawBoxes(boxesToDraw, runtime);
+                runtimeLabel.setText("Runtime: " + runtime); // update left sidebar
+            });
         }).start();
     }
 

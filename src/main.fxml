@@ -39,6 +39,9 @@
 
             <!-- RUN BUTTON -->
             <Button fx:id="runButton" text="Run Algorithm" onAction="#handleRun" />
+
+            <!-- Runtime Label -->
+            <Label fx:id="runtimeLabel" text="Runtime: " style="-fx-font-weight: bold;"/>
         </VBox>
     </left>
 
