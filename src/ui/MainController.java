@@ -34,6 +34,7 @@ public class MainController {
 
     @FXML
     public void initialize() {
+
         UnaryOperator<TextFormatter.Change> filter = change -> {
             String newText = change.getControlNewText();
             return newText.matches("\\d*") ? change : null;
@@ -46,24 +47,36 @@ public class MainController {
         maxHField.setTextFormatter(new TextFormatter<>(filter));
         boxLField.setTextFormatter(new TextFormatter<>(filter));
 
-        // Populate algorithm combo
-        algorithmCombo.setItems(FXCollections.observableArrayList("Greedy", "Local Search"));
+        algorithmCombo.setItems(FXCollections.observableArrayList(
+                "Greedy", "Local Search"
+        ));
         algorithmCombo.getSelectionModel().selectFirst();
 
-        // Populate neighborhood and selection combos
-        neighborhoodCombo.setItems(FXCollections.observableArrayList(
-                "Geometry-based", "Partially Overlapped", "Rule-based"
-        ));
         selectionCombo.setItems(FXCollections.observableArrayList(
                 "Area-based", "Height-based"
         ));
+        selectionCombo.getSelectionModel().selectFirst();
 
-        // Enable/disable based on algorithm selection
-        algorithmCombo.setOnAction(e -> {
-            boolean isLocal = "Local Search".equals(algorithmCombo.getValue());
-            neighborhoodCombo.setDisable(!isLocal);
-            selectionCombo.setDisable(isLocal);
+        neighborhoodCombo.setItems(FXCollections.observableArrayList(
+                "Geometry-based", "Partially Overlapped", "Rule-based"
+        ));
+        neighborhoodCombo.getSelectionModel().selectFirst();
+
+        algorithmCombo.valueProperty().addListener((obs, oldVal, newVal) -> {
+            updateAlgorithmUI();
         });
+
+        // apply correct state on first render
+        updateAlgorithmUI();
+
+    }
+
+
+    private void updateAlgorithmUI() {
+        boolean isLocal = "Local Search".equals(algorithmCombo.getValue());
+
+        selectionCombo.setDisable(isLocal);     // disable for Local Search
+        neighborhoodCombo.setDisable(!isLocal); // enable only for Local Search
     }
 
     @FXML
