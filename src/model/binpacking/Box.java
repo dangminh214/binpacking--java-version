@@ -17,6 +17,10 @@ public class Box {
         this.rectangles = new ArrayList<Rectangle>();
     }
 
+    public int getLength() {
+        return this.boxL;
+    }
+
     public int getId() {
         return id;
     }

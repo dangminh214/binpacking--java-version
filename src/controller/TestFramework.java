@@ -1,3 +1,5 @@
+package controller;
+
 import java.util.ArrayList;
 import model.algorithm.greedy.GreedyAlgorithm;
 import model.binpacking.AlgSolution;
@@ -15,6 +17,7 @@ public class TestFramework {
     private int maxH;
     private ArrayList<Rectangle> rectangles;
     private int boxL;
+    private AlgSolution solution;
 
     public TestFramework(
         int numberInstances,
@@ -63,6 +66,11 @@ public class TestFramework {
         this.maxH = maxH;
         this.rectangles = new ArrayList<Rectangle>();
         this.boxL = boxL;
+        this.solution = null;
+    }
+
+    public AlgSolution getSolution() {
+        return this.solution;
     }
 
     public void generateInstances() {
@@ -83,10 +91,10 @@ public class TestFramework {
     public void runGreedy() {
         AreaGreedyStrategy selection = new AreaGreedyStrategy(this.rectangles);
         BottomLeftPlacer placer = new BottomLeftPlacer(this.boxL);
-        AlgSolution algSol = new AlgSolution(this.numberInstances);
+        this.solution = new AlgSolution(this.numberInstances);
 
         GreedyAlgorithm<Rectangle, Box, AlgSolution> alg =
-            new GreedyAlgorithm<>(algSol, selection, placer);
+            new GreedyAlgorithm<>(solution, selection, placer);
 
         AlgSolution sol = alg.solve();
 

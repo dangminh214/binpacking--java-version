@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.layout.Pane?>
 <BorderPane prefHeight="668.0" prefWidth="1144.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.MainController">
     <left>
         <VBox alignment="TOP_CENTER" prefHeight="668.0" prefWidth="266.0" spacing="5">
@@ -28,6 +29,6 @@
     </left>
 
     <center>
-        <Label prefHeight="18.0" prefWidth="260.0" text="Hello JavaFX" />
+        <Pane fx:id="solutionPane" prefWidth="800" prefHeight="600" style="-fx-background-color: lightgray;"/>
     </center>
 </BorderPane>
