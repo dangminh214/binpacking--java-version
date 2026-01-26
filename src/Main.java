@@ -1,13 +1,23 @@
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("Hello World");
-        int a = 1;
-        int b = 2;
+        int instanceNumber = 1000;
+        int minW = 1;
+        int maxW = 50;
+        int minH = 1;
+        int maxH = 50;
+        int boxL = 100;
 
-        System.out.println("a " + a);
-        System.out.println("b: " + b);
+        TestFramework tf = new TestFramework(
+            instanceNumber,
+            minW,
+            maxW,
+            minH,
+            maxH,
+            boxL
+        );
 
-        // test
+        tf.generateInstances();
+        tf.runGreedy();
     }
 }

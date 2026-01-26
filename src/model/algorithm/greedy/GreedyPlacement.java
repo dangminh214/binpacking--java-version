@@ -7,9 +7,7 @@ package model.algorithm.greedy;
 // If return true then add else skip
 
 import model.algorithm.AbstractSolution;
-import model.binpacking.AlgSolution;
-import model.binpacking.Rectangle;
-import model.binpacking.greedy.ToPlacePosition;
+import model.algorithm.ToPlacePosition;
 import model.core.Item;
 import model.core.PlacementStrategy;
 
@@ -24,7 +22,7 @@ public abstract class GreedyPlacement<
 > extends PlacementStrategy<I, S> {
 
     public boolean checkThenAdd(I item, S solution) {
-        Placement toPlacePos = this.canPlace(item, solution);
+        ToPlacePosition toPlacePos = this.canPlace(item, solution);
         if (toPlacePos != null) {
             this.place(item, solution, toPlacePos);
             return true;
@@ -37,33 +35,11 @@ public abstract class GreedyPlacement<
      * @return Placement containing container id and position,
      *         or null if it is unplaceable
      */
-    protected abstract Placement canPlace(I item, S solution);
+    protected abstract ToPlacePosition canPlace(I item, S solution);
 
     /**
      * insert an item into a solution
      * @param pos container id in the solution and coordinates to place the item
      */
-    protected abstract void place(I item, S solution, Placement pos);
-
-    protected abstract void place(
-        Rectangle rect,
-        AlgSolution algSol,
-        ToPlacePosition toPlacePos
-    );
-
-    /**
-     * Helper class representing a placement position
-     */
-    protected static class Placement {
-
-        public final int cid;
-        public final int x;
-        public final int y;
-
-        public Placement(int cid, int x, int y) {
-            this.cid = cid;
-            this.x = x;
-            this.y = y;
-        }
-    }
+    protected abstract void place(I item, S solution, ToPlacePosition pos);
 }

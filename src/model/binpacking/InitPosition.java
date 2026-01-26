@@ -1,11 +1,11 @@
 package model.binpacking;
 
-public class Position {
+public class InitPosition {
 
     private Integer x = null;
     private Integer y = null;
 
-    public Position(Integer x, Integer y) {
+    public InitPosition(Integer x, Integer y) {
         this.x = x;
         this.y = y;
     }

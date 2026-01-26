@@ -11,7 +11,7 @@ public class Rectangle extends Item {
     private boolean isRotated;
     int area;
 
-    private Position position;
+    private InitPosition position;
 
     public Rectangle(int id, int width, int height) {
         this.id = id;
@@ -19,7 +19,7 @@ public class Rectangle extends Item {
         this.height = height;
         this.area = width * height;
         this.isRotated = false;
-        this.position = new Position(0, 0);
+        this.position = new InitPosition(0, 0);
     }
 
     public int getId() {
@@ -42,11 +42,18 @@ public class Rectangle extends Item {
         return height;
     }
 
-    public Position getPosition() {
+    public InitPosition getPosition() {
         return position;
     }
 
     public void setPosition(int x, int y) {
-        this.position = new Position(x, y);
+        this.position = new InitPosition(x, y);
+    }
+
+    public void rotate() {
+        int temp = width;
+        width = height;
+        height = temp;
+        isRotated = !isRotated;
     }
 }
