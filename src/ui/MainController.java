@@ -101,7 +101,7 @@ public class MainController {
     private void drawBoxes(List<Box> boxes, String runtime) {
         solutionPane.getChildren().clear();
 
-        double scale = 2.0; // bigger scale for larger boxes
+        double scale = 5.0; // bigger scale for larger boxes
         double spacingX = 50;
         double spacingY = 50;
 
@@ -120,7 +120,7 @@ public class MainController {
             double offsetY = startY + row * (box.getLength() * scale + spacingY);
 
             // Box color
-            Color boxColor = Color.color(Math.random(), Math.random(), Math.random(), 0.2);
+            Color boxColor = Color.LIGHTGRAY;
 
             // Draw box boundary
             Rectangle boxRect = new Rectangle(box.getLength() * scale, box.getLength() * scale);

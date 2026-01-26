@@ -11,9 +11,9 @@ public class FXApp extends Application {
     public void start(Stage stage) throws Exception {
         // Load FXML
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../main.fxml"));
-        Scene scene = new Scene(loader.load(), 1144, 668); // width x height
+        Scene scene = new Scene(loader.load(), 1600, 1200); // width x height
 
-        stage.setTitle("Number Input App");
+        stage.setTitle("Bin Packing Problem");
         stage.setScene(scene);
         stage.show();
     }
