@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "tasks": [
+    {
+      "label": "Run JavaFX",
+      "command": "./run.sh",
+    },
+  ],
+}

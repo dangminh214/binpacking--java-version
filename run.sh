@@ -1,20 +1,22 @@
 #!/bin/bash
 
+set -e  # stop on first error
+
 JAVA_FX=/usr/share/openjfx/lib
 OUT=out
 
-mkdir -p $OUT
+echo "▶ Compiling..."
+mkdir -p "$OUT"
 
-# compile ALL java files recursively
 javac \
-  --module-path $JAVA_FX \
-  --add-modules javafx.controls \
-  -d $OUT \
+  --module-path "$JAVA_FX" \
+  --add-modules javafx.controls,javafx.fxml \
+  -d "$OUT" \
   $(find src -name "*.java")
 
-# run your JavaFX main class (adjust package if needed)
+echo "▶ Running JavaFX app..."
 java \
-  --module-path $JAVA_FX \
-  --add-modules javafx.controls \
-  -cp $OUT \
-  HelloFX
+  --module-path "$JAVA_FX" \
+  --add-modules javafx.controls,javafx.fxml \
+  -cp "$OUT" \
+  ui.FXApp
