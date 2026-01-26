@@ -16,10 +16,12 @@ javac \
   -d "$OUT" \
   $(find "$SRC" -name "*.java")
 
+echo "▶ Copying FXML resources..."
+cp "$SRC/main.fxml" "$OUT/"
+
 echo "▶ Running JavaFX app..."
 java \
   --module-path "$JAVA_FX" \
   --add-modules javafx.controls,javafx.fxml \
   -cp "$OUT" \
-  -D javafx.fxml=/binpacking--java-version/src/main.fxml \
   ui.FXApp
