@@ -42,6 +42,12 @@
 
             <!-- Runtime Label -->
             <Label fx:id="runtimeLabel" text="Runtime: " style="-fx-font-weight: bold;"/>
+
+            <!-- Number of boxes -->
+            <Label fx:id="boxesLabel" text="Boxes: " style="-fx-font-weight: bold;"/>
+
+            <!-- Number of rectangles used -->
+            <Label fx:id="rectanglesLabel" text="Rectangles: " style="-fx-font-weight: bold;"/>
         </VBox>
     </left>
 

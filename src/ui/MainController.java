@@ -19,6 +19,8 @@ import java.util.function.UnaryOperator;
 
 public class MainController {
 
+    public Label boxesLabel;       // number of boxes
+    public Label rectanglesLabel;  // number of rectangles used
     public Button runButton;
     public Label runtimeLabel;
     @FXML private TextField rectanglesNumberField;
@@ -68,6 +70,14 @@ public class MainController {
             Platform.runLater(() -> {
                 drawBoxes(boxesToDraw, runtime);
                 runtimeLabel.setText("Runtime: " + runtime); // update left sidebar
+                int totalBoxes = tf.getSolution().getItems().size();
+                boxesLabel.setText("Used Boxes: " + totalBoxes);
+
+                int totalRectangles = tf.getSolution().getItems().stream()
+                        .mapToInt(b -> b.getRectangles().size())
+                        .sum();
+
+                rectanglesLabel.setText("Rectangles: " + totalRectangles);
             });
         }).start();
     }
@@ -101,7 +111,7 @@ public class MainController {
     private void drawBoxes(List<Box> boxes, String runtime) {
         solutionPane.getChildren().clear();
 
-        double scale = 5.0; // bigger scale for larger boxes
+        double scale = 4.0; // bigger scale for larger boxes
         double spacingX = 50;
         double spacingY = 50;
 
@@ -130,6 +140,13 @@ public class MainController {
             boxRect.setY(offsetY);
             solutionPane.getChildren().add(boxRect);
 
+            // Add box ID text above the box
+            Text boxIdText = new Text("Box: " + box.getId());
+            boxIdText.setX(offsetX + 5);
+            boxIdText.setY(offsetY - 5); // slightly above the box
+            boxIdText.setFill(Color.BLACK);
+            solutionPane.getChildren().add(boxIdText);
+
             // Draw rectangles inside box
             for (BinRectangle rect : box.getRectangles()) {
                 double rx = offsetX + rect.getPosition().getX() * scale;
@@ -156,12 +173,5 @@ public class MainController {
                 solutionPane.getChildren().add(idText);
             }
         }
-
-        // Display runtime at bottom
-        Text runtimeText = new Text("Runtime: " + runtime);
-        runtimeText.setX(20);
-        runtimeText.setY(solutionPane.getHeight() - 20);
-        runtimeText.setFill(Color.BLACK);
-        solutionPane.getChildren().add(runtimeText);
     }
 }
