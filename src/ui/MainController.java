@@ -206,11 +206,20 @@ public class MainController {
             // Draw rectangles inside box
             for (BinRectangle rect : box.getRectangles()) {
                 double rx = offsetX + rect.getPosition().getX() * scale;
-                double ry = offsetY + rect.getPosition().getY() * scale;
+                double boxSize = box.getLength() * scale;
+
+                double ry = offsetY
+                        + boxSize
+                        - (rect.getPosition().getY() + rect.getHeight()) * scale;
+
                 double rw = rect.getWidth() * scale;
                 double rh = rect.getHeight() * scale;
 
                 Rectangle r = new Rectangle(rw, rh);
+
+                r.setX(rx);
+                r.setY(ry);
+
                 if (rect.getIsRotated()) {
                     r.setFill(Color.RED);
                 } else {
