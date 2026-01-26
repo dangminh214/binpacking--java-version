@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.control.ScrollPane?>
 
-<BorderPane prefHeight="668.0" prefWidth="1144.0"
+<BorderPane prefHeight="900" prefWidth="1600.0"
             xmlns="http://javafx.com/javafx/25"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="ui.MainController">
@@ -37,10 +37,11 @@
                 </font>
             </TextField>
 
-            <!-- Add Run button -->
-            <Button text="Run Algorithm" onAction="#handleRun"/>
+            <!-- RUN BUTTON -->
+            <Button fx:id="runButton" text="Run Algorithm" onAction="#handleRun" />
         </VBox>
     </left>
+
 
     <center>
         <!-- Wrap the solution Pane in a ScrollPane -->
