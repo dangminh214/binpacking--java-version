@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="668.0" prefWidth="1144.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.MainController">
+    <left>
+        <VBox alignment="TOP_CENTER" prefHeight="668.0" prefWidth="266.0" spacing="5">
+         <Label text="Rectangles number" />
+            <TextField alignment="CENTER" fx:id="rectanglesNumberField" promptText="Number of rectangles" />
+         <Label text="Min Width" textAlignment="CENTER" />
+            <TextField alignment="CENTER" fx:id="minWField" promptText="Min width" />
+         <Label text="Max Width" />
+            <TextField alignment="CENTER" fx:id="maxWField" promptText="Max width" />
+         <Label text="Min Height" textAlignment="CENTER" />
+            <TextField alignment="CENTER" fx:id="minHField"  promptText="Min Height" />
+         <Label text="Max Height" />
+            <TextField alignment="CENTER" fx:id="maxHField" promptText="Max Height" />
+         <Label text="Box Length" />
+         <TextField alignment="CENTER" fx:id="boxLField" promptText="Box Length">
+            <font>
+               <Font size="12.0" />
+            </font></TextField>
+        </VBox>
+    </left>
+
+    <center>
+        <Label prefHeight="18.0" prefWidth="260.0" text="Hello JavaFX" />
+    </center>
+</BorderPane>
