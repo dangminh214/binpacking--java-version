@@ -1,7 +1,7 @@
 public class Main {
 
     public static void main(String[] args) {
-        int instanceNumber = 1000;
+        int instanceNumber = 10000;
         int minW = 1;
         int maxW = 50;
         int minH = 1;
