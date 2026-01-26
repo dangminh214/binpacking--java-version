@@ -2,11 +2,9 @@ package ui;
 
 import controller.TestFramework;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -23,6 +21,9 @@ public class MainController {
     public Label rectanglesLabel;  // number of rectangles used
     public Button runButton;
     public Label runtimeLabel;
+    @FXML private ComboBox<String> algorithmCombo;
+    @FXML private ComboBox<String> neighborhoodCombo;
+    @FXML private ComboBox<String> selectionCombo;
     @FXML private TextField rectanglesNumberField;
     @FXML private TextField minWField;
     @FXML private TextField maxWField;
@@ -44,6 +45,25 @@ public class MainController {
         minHField.setTextFormatter(new TextFormatter<>(filter));
         maxHField.setTextFormatter(new TextFormatter<>(filter));
         boxLField.setTextFormatter(new TextFormatter<>(filter));
+
+        // Populate algorithm combo
+        algorithmCombo.setItems(FXCollections.observableArrayList("Greedy", "Local Search"));
+        algorithmCombo.getSelectionModel().selectFirst();
+
+        // Populate neighborhood and selection combos
+        neighborhoodCombo.setItems(FXCollections.observableArrayList(
+                "Geometry-based", "Partially Overlapped", "Rule-based"
+        ));
+        selectionCombo.setItems(FXCollections.observableArrayList(
+                "Area-based", "Height-based"
+        ));
+
+        // Enable/disable based on algorithm selection
+        algorithmCombo.setOnAction(e -> {
+            boolean isLocal = "Local Search".equals(algorithmCombo.getValue());
+            neighborhoodCombo.setDisable(!isLocal);
+            selectionCombo.setDisable(isLocal);
+        });
     }
 
     @FXML
@@ -57,10 +77,33 @@ public class MainController {
         int maxH = parseField(maxHField, 50);
         int boxL = parseField(boxLField, 100);
 
+        String algorithm = algorithmCombo.getValue();
+        String neighborhood = neighborhoodCombo.getValue();
+        String selectionStrategy = selectionCombo.getValue();
+
         new Thread(() -> {
             TestFramework tf = new TestFramework(n, minW, maxW, minH, maxH, boxL);
             tf.generateInstances();
-            tf.runGreedy(); // Run algorithm
+
+            if ("Greedy".equals(algorithm)) {
+
+                // default if user didn't choose
+                String greedyStrategy = selectionStrategy != null
+                        ? selectionStrategy
+                        : "Area-based";
+
+                tf.runGreedy(greedyStrategy);
+
+            } else if ("Local Search".equals(algorithm)) {
+
+                // safety defaults
+                String neigh = neighborhood != null ? neighborhood : "Geometry-based";
+                String select = selectionStrategy != null ? selectionStrategy : "Area-based";
+
+                // tf.runLocalSearch(neigh, select);
+            }
+
+
 
             List<Box> boxesToDraw = getBoxes(tf);
 

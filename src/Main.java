@@ -20,6 +20,6 @@ public class Main {
         );
 
         tf.generateInstances();
-        tf.runGreedy();
+        tf.runGreedy("area");
     }
 }

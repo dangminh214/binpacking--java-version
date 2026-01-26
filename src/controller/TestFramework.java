@@ -2,11 +2,13 @@ package controller;
 
 import java.util.ArrayList;
 import model.algorithm.greedy.GreedyAlgorithm;
+import model.algorithm.greedy.GreedySelection;
 import model.binpacking.AlgSolution;
 import model.binpacking.BinRectangle;
 import model.binpacking.Box;
 import model.binpacking.greedy.BottomLeftPlacer;
 import model.binpacking.greedy.selectionStrategy.AreaGreedyStrategy;
+import model.binpacking.greedy.selectionStrategy.HeightGreedyStrategy;
 
 public class TestFramework {
 
@@ -88,13 +90,24 @@ public class TestFramework {
         );
     }
 
-    public void runGreedy() {
-        AreaGreedyStrategy selection = new AreaGreedyStrategy(this.rectangles);
+    public void runGreedy(String greedyStrategy) {
+        GreedySelection<BinRectangle> strategy;
+
+        if ("Area-based".equalsIgnoreCase(greedyStrategy)) {
+            strategy = new AreaGreedyStrategy(this.rectangles);
+        } else if ("Height-based".equalsIgnoreCase(greedyStrategy)) {
+            strategy = new HeightGreedyStrategy(this.rectangles);
+        } else {
+            throw new IllegalArgumentException(
+                    "Unknown greedy strategy: " + greedyStrategy
+            );
+        }
+
         BottomLeftPlacer placer = new BottomLeftPlacer(this.boxL);
         this.solution = new AlgSolution(this.numberInstances);
 
         GreedyAlgorithm<BinRectangle, Box, AlgSolution> alg =
-            new GreedyAlgorithm<>(solution, selection, placer);
+            new GreedyAlgorithm<>(solution, strategy, placer);
 
         AlgSolution sol = alg.solve();
 

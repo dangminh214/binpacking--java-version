@@ -8,34 +8,47 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.control.ScrollPane?>
 
+<?import javafx.scene.control.ComboBox?>
 <BorderPane prefHeight="900" prefWidth="1600.0"
             xmlns="http://javafx.com/javafx/25"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="ui.MainController">
 
     <left>
-        <VBox alignment="TOP_CENTER" prefHeight="668.0" prefWidth="266.0" spacing="5">
+        <VBox alignment="TOP_CENTER" prefHeight="668.0" prefWidth="266.0" spacing="8">
             <Label text="Rectangles number" />
-            <TextField fx:id="rectanglesNumberField" promptText="Number of rectangles" />
+            <TextField fx:id="rectanglesNumberField" promptText="1000" />
 
             <Label text="Min Width" />
-            <TextField fx:id="minWField" promptText="Min width" />
+            <TextField fx:id="minWField" promptText="1" />
 
             <Label text="Max Width" />
-            <TextField fx:id="maxWField" promptText="Max width" />
+            <TextField fx:id="maxWField" promptText="50" />
 
             <Label text="Min Height" />
-            <TextField fx:id="minHField" promptText="Min Height" />
+            <TextField fx:id="minHField" promptText="1" />
 
             <Label text="Max Height" />
-            <TextField fx:id="maxHField" promptText="Max Height" />
+            <TextField fx:id="maxHField" promptText="50" />
 
             <Label text="Box Length" />
-            <TextField fx:id="boxLField" promptText="Box Length">
+            <TextField fx:id="boxLField" promptText="100">
                 <font>
                     <Font size="12.0"/>
                 </font>
             </TextField>
+
+            <!-- Algorithm selection -->
+            <Label text="Algorithm" />
+            <ComboBox fx:id="algorithmCombo" promptText="Choose algorithm" />
+
+            <!-- Neighborhood type (enabled only for local search) -->
+            <Label text="Neighborhood type" />
+            <ComboBox fx:id="neighborhoodCombo" promptText="Choose neighborhood" disable="true" />
+
+            <!-- Selection strategy (enabled only for local search) -->
+            <Label text="Selection strategy" />
+            <ComboBox fx:id="selectionCombo" promptText="Choose strategy" disable="true" />
 
             <!-- RUN BUTTON -->
             <Button fx:id="runButton" text="Run Algorithm" onAction="#handleRun" />
