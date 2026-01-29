@@ -25,4 +25,8 @@ public abstract class AbstractSolution<B> {
     public String getFormattedRunTime() {
         return String.format("%.2f ms", runtime);
     }
+
+    public int getItems() {
+        return this.items.size();
+    }
 }
