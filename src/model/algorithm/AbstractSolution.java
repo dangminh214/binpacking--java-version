@@ -26,8 +26,8 @@ public abstract class AbstractSolution<B, S extends AbstractSolution<B, S>> {
         return String.format("%.2f ms", runtime);
     }
 
-    public int getItems() {
-        return this.items.size();
+    public List<B> getItems() {
+        return this.items;
     }
 
     public abstract ArrayList<S> generateNeighbors();

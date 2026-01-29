@@ -16,9 +16,8 @@ import model.core.PlacementStrategy;
  * e.g. Bottom Left
  */
 public abstract class GreedyPlacement<
-    I extends Item,
-    C,
-    S extends AbstractSolution<C>
+    I extends Item, B,
+    S extends AbstractSolution<B,S>
 > extends PlacementStrategy<I, S> {
 
     public boolean checkThenAdd(I item, S solution) {

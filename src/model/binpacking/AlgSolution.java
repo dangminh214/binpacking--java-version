@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.algorithm.AbstractSolution;
 
-public class AlgSolution extends AbstractSolution<Box> {
+public class AlgSolution extends AbstractSolution<Box, AlgSolution> {
 
     List<Box> items;
     private int numbRect;
@@ -27,6 +27,21 @@ public class AlgSolution extends AbstractSolution<Box> {
         return items;
     }
 
+    @Override
+    public ArrayList<AlgSolution> generateNeighbors() {
+        return null;
+    }
+
+    @Override
+    public int getNumberOfBins() {
+        return 0;
+    }
+
+    @Override
+    public double getTotalUnusedArea() {
+        return 0;
+    }
+
     public void setItems(List<Box> items) {
         this.items = items;
     }
@@ -42,4 +57,6 @@ public class AlgSolution extends AbstractSolution<Box> {
 
         System.out.println("Run time: " + getRuntime() + "ms");
     }
+
+
 }

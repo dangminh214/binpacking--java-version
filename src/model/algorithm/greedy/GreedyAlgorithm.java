@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import model.algorithm.AbstractSolution;
 import model.core.Item;
 
-public class GreedyAlgorithm<I extends Item, C, S extends AbstractSolution<C>> {
+public class GreedyAlgorithm<I extends Item, B, S extends AbstractSolution<B, S>> {
 
     GreedySelection<I> selectionStrategy; // e.g, first fit descending
-    GreedyPlacement<I, C, S> placementStrategy; //e.g. bottom left placement
+    GreedyPlacement<I, B, S> placementStrategy; //e.g. bottom left placement
     S solution;
 
     public GreedyAlgorithm(
         S initSolution,
         GreedySelection<I> selectionStrategy,
-        GreedyPlacement<I, C, S> placementStrategy
+        GreedyPlacement<I, B, S> placementStrategy
     ) {
         this.solution = initSolution;
         this.selectionStrategy = selectionStrategy;
