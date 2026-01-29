@@ -22,7 +22,7 @@ public class LocalSearchAlgorithm<I extends Item, C, S extends AbstractSolution<
 
     public double costFunction(S solution) {
         double WEIGHT = 1000;
-        return solution.getItems();
+        return solution.getItems() * WEIGHT + this.occupiedRate;
     }
 
     public void runLocalSearch() {
