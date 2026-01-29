@@ -8,7 +8,7 @@ import java.util.List;
  * This class allows algorithms to interact with a problem
  * without knowing its specific rules or geometry.
  */
-public abstract class AbstractSolution<B> {
+public abstract class AbstractSolution<B, S extends AbstractSolution<B, S>> {
 
     protected double runtime; // ms
     protected List<B> items;
@@ -29,4 +29,9 @@ public abstract class AbstractSolution<B> {
     public int getItems() {
         return this.items.size();
     }
+
+    public abstract ArrayList<S> generateNeighbors();
+
+    public abstract int getNumberOfBins();
+    public abstract double getTotalUnusedArea();
 }

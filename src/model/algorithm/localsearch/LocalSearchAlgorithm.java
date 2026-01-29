@@ -1,16 +1,11 @@
 package model.algorithm.localsearch;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import model.algorithm.AbstractSolution;
 import model.core.Item;
 
-import model.core.Item;
+public class LocalSearchAlgorithm<I extends Item, B, S extends AbstractSolution<B, S>> {
 
-public class LocalSearchAlgorithm<I extends Item, C, S extends AbstractSolution<C>> {
-    private int numBox = 0;
-    private double occupiedRate = 0.0;
-    private ArrayList<S> solutions = new ArrayList<S>();
     private S currentSolution;
     public LocalSearchAlgorithm(S initialSolution) {
         currentSolution = initialSolution;
@@ -20,16 +15,41 @@ public class LocalSearchAlgorithm<I extends Item, C, S extends AbstractSolution<
         return this.currentSolution;
     }
 
-    public double costFunction(S solution) {
-        double WEIGHT = 1000;
-        return solution.getItems() * WEIGHT + this.occupiedRate;
+    /*
+    * Reducing number of boxes is the best objective that we are looking for
+    * Small objective points => better solution
+    * */
+    public double objectiveFunction(S solution) {
+        double BIG = 1_000_000;
+        return solution.getNumberOfBins() * BIG + solution.getTotalUnusedArea();
     }
 
-    public void runLocalSearch() {
-        for (int i = 0; i < this.solutions.size(); i++) {
-            if (costFunction(this.solutions.get(i + 1)) < costFunction((this.solutions.get(i))))  {
-                this.currentSolution = this.solutions.get(i);
+    public S solve() {
+        boolean improved = true;
+
+        while (improved) {
+            improved = false;
+
+            ArrayList<S> neighbors = currentSolution.generateNeighbors();
+
+            S bestNeighbor = currentSolution;
+            double bestCost = objectiveFunction(currentSolution);
+
+            for (S neighbor : neighbors) {
+                double cost = objectiveFunction(neighbor);
+
+                if (cost < bestCost) {
+                    bestCost = cost;
+                    bestNeighbor = neighbor;
+                    improved = true;
+                }
+            }
+
+            if (improved) {
+                currentSolution = bestNeighbor;
             }
         }
+
+        return currentSolution;
     }
 }
